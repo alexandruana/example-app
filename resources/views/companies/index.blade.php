@@ -37,6 +37,7 @@
                             <th class="px-6 py-3">Company City</th>
                             <th class="px-6 py-3">Company Country</th>
                             <th class="px-6 py-3">Company Tax ID.</th>
+                            <th class="px-6 py-3">Client ID.</th>
                             <th class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
@@ -63,6 +64,9 @@
                                 </td>
                                 <td class="px-6 py-3 text-center">
                                     {{ ucwords($company->company_tax_id) }}
+                                </td>
+                                <td class="px-6 py-3 text-center">
+                                    {{ ucwords($company->client_id) }}
                                 </td>
                                 <td class="px-6 py-3 flex items-center">
                                     <a class="ms-3 bg-sky-500 text-white text-black px-3 py-2 h-10"
