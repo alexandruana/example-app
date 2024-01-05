@@ -30,7 +30,7 @@ class CompanyController extends Controller
             'company_postcode' => 'required|string|max:255',
             'company_city' => 'required|string|max:255',
             'company_country' => 'required|string|max:255',
-            'company_tax_id' => 'string|max:255',
+            'company_tax_id' => 'nullable|max:255',
             'client_id' => 'nullable|exists:clients,id',
         ]);
         Company::create($validatedData);
@@ -60,7 +60,7 @@ class CompanyController extends Controller
             'company_postcode' => 'required|string|max:255',
             'company_city' => 'required|string|max:255',
             'company_country' => 'required|string|max:255',
-            'company_tax_id' => 'required|string|max:255',
+            'company_tax_id' => 'nullable|max:255',
         ]);
         $company->update($validatedData);
         return redirect()

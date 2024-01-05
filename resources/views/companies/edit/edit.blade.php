@@ -48,9 +48,9 @@
                          name="company_country" required><br>
                  </div>
                  <div class="flex flex-col gep-y-2">
-                     <label for="company_tax_id">Tax ID:</label>
+                     <label for="company_tax_id">Company Tax ID:</label>
                      <input class="px-2 h-10 border border-black" value="{{ $company->company_tax_id }}" type="text"
-                         name="company_tax_id" required><br>
+                         name="company_tax_id"><br>
                  </div>
 
 

@@ -43,7 +43,7 @@
                     </div>
                     <div class="flex flex-col gep-y-2">
                         <label for="company_tax_id">Company Tax ID:</label>
-                        <input class="px-2 h-10 border border-black" type="text" name="company_tax_id" required><br>
+                        <input class="px-2 h-10 border border-black" type="text" name="company_tax_id"><br>
                     </div>
 
                     <button class="bg-sky-500 text-white text-black px-3 py-2 h-10" type="submit">Create</button>
