@@ -1,23 +1,9 @@
-<! - resources/views/clients/index.blade.php → 
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-        <title>Companies</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-
-    </head>
-
-    <body>
-        <a href="{{url('/')}}">
-            <button class="bg-sky-500 my-2 mx-2 text-white text-black px-3 py-2 h-10" type="submit">Home</button>
-        </a>
-        <a href="{{url('/clients')}}">
-            <button class="bg-sky-500 my-2 mx-2 text-white text-black px-3 py-2 h-10" type="submit">Clients</button>
-        </a>
-        <a href="{{url('/companies')}}">
-            <button class="bg-sky-500 my-2 mx-2 text-white text-black px-3 py-2 h-10" type="submit">Companies</button>
-        </a>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Companies
+        </h2>
+    </x-slot>
         <div
             class="flex justify-center  items-center content-center flex-col align-items-center min-h-screen">
             <div class="w-1/2">
@@ -87,6 +73,4 @@
                 </table>
             </div>
         </div>
-    </body>
-
-    </html>
+</x-app-layout>
