@@ -65,14 +65,18 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $client->company->name ?? 'N/A' }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $client->company->tax_id ?? 'N/A' }}
-                                </td>
-                            </tr>
+                            @forelse ($client->companies as $company)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $company->company_name ?? 'N/A' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $company->company_tax_id ?? 'N/A' }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <p>No companies found for this client.</p>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

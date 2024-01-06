@@ -9,7 +9,7 @@ class Client extends Model
 {
     public function companies()
     {
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class, 'client_id');
     }
     protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry'];
     use HasFactory;
