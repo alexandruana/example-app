@@ -23,7 +23,6 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id')->nullable(); // Foreign key column
             $table->foreign('client_id')->references('id')->on('clients');
 
-
             $table->timestamps();
         });
     }
