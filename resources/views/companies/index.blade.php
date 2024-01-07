@@ -9,12 +9,12 @@
             <div class="w-1/2">
                 <div class="flex justify-between w-full">
                     <h1 class="text-xl font-bold">Companies</h1>
-                    <a class="ms-3 bg-sky-500 text-white text-black px-3 py-2"
+                    <a class="ms-3 bg-sky-500 px-3 py-2"
                         href="{{ route('companies.create') }}">Create</a>
 
                 </div>
                 <table class="table-auto shadow-sm overflow-hidden my-8 rounded-xl w-full">
-                    <thead class="bg-slate-600 text-white">
+                    <thead class="bg-slate-600">
                         <tr>
                             <th class="px-6 py-3">ID</th>
                             <th class="px-6 py-3">Company Name</th>
@@ -23,7 +23,6 @@
                             <th class="px-6 py-3">Company City</th>
                             <th class="px-6 py-3">Company Country</th>
                             <th class="px-6 py-3">Company Tax ID.</th>
-                            <th class="px-6 py-3">Client ID.</th>
                             <th class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
@@ -51,11 +50,8 @@
                                 <td class="px-6 py-3 text-center">
                                     {{ ucwords($company->company_tax_id) }}
                                 </td>
-                                <td class="px-6 py-3 text-center">
-                                    {{ ucwords($company->client_id) }}
-                                </td>
                                 <td class="px-6 py-3 flex items-center">
-                                    <a class="ms-3 bg-sky-500 text-white text-black px-3 py-2 h-10"
+                                    <a class="ms-3 bg-sky-400 text-white text-black px-3 py-2 h-10"
                                         href="{{ route('companies.edit', $company->id) }}">
                                         Edit
                                     </a>

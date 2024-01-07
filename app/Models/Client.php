@@ -11,6 +11,6 @@ class Client extends Model
     {
         return $this->hasMany(Company::class, 'client_id');
     }
-    protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry'];
+    protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry','company_id'];
     use HasFactory;
 }

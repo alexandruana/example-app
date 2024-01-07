@@ -46,12 +46,17 @@
                         <input class="px-2 h-10 border border-black" type="text" name="doc_type" required><br>
                     </div>
                     <div class="flex flex-col gep-y-2">
-                        <label for="name">Document Number:</label>
+                        <label for="doc_number">Document Number:</label>
                         <input class="px-2 h-10 border border-black" type="text" name="doc_number" required><br>
                     </div>
                     <div class="flex flex-col gep-y-2">
-                        <label for="name">Document Expiry:</label>
+                        <label for="doc_expiry">Document Expiry:</label>
                         <input class="px-2 h-10 border border-black" type="date" name="doc_expiry" required><br>
+                    </div>
+                    <div class="flex flex-col gep-y-2">
+                     <label for="company_id">Company ID:</label>
+                     <input class="px-2 h-10 border border-black" type="number"
+                         name="company_id"><br>
                     </div>
 
 

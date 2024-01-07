@@ -62,6 +62,11 @@
                      <input class="px-2 h-10 border border-black" value="{{ $client->doc_expiry }}" type="date"
                          name="doc_expiry" required><br>
                  </div>
+                 <div class="flex flex-col gep-y-2">
+                     <label for="company_id">Company ID:</label>
+                     <input class="px-2 h-10 border border-black" value="{{ $client->company_id }}" type="number"
+                         name="company_id"><br>
+                 </div>
 
 
                  <button class="bg-sky-500 text-white text-black px-3 py-2 h-10" type="submit">Update</button>

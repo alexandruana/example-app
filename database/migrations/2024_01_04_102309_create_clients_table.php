@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('doc_type');
             $table->string('doc_number');
             $table->string('doc_expiry');
+            $table->string('company_id');
             $table->timestamps();
         });
     }

@@ -29,7 +29,8 @@ class ClientController extends Controller
             'nationality' => 'required|string|max:255',
             'doc_type' => 'sometimes|string|max:255',
             'doc_number' => 'sometimes|string|max:20',
-            'doc_expiry' => 'sometimes|date'
+            'doc_expiry' => 'sometimes|date',
+            'company_id' => 'nullable|max:255'
         ]);
         Client::create($validatedData);
         return redirect()
@@ -54,7 +55,8 @@ class ClientController extends Controller
             'nationality' => 'required|string|max:255',
             'doc_type' => 'sometimes|string|max:255',
             'doc_number' => 'sometimes|string|max:20',
-            'doc_expiry' => 'sometimes|date'
+            'doc_expiry' => 'sometimes|date',
+            'company_id' => 'nullable|max:255'
         ]);
         $client->update($validatedData);
         return redirect()
