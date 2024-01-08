@@ -62,6 +62,8 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                        {{-- Debugging --}}
+                        @dump($client->companies)
                             @forelse ($client->companies as $company)
                                 <tr>
                                     <td class="whitespace-nowrap text-left text-sm text-gray-500">

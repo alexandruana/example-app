@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    use HasFactory;
+
+    protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry','company_id'];
+
     public function companies()
     {
-        return $this->hasMany(Company::class, 'client_id');
+        return $this->hasMany(Company::class);
     }
-    protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry','company_id'];
-    use HasFactory;
 }

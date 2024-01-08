@@ -1,0 +1,18 @@
+[90m= [39m[34;4mApp\Models\Client[39;24m {#7267
+    [34mid[39m: [35m1[39m,
+    [34mfirst_name[39m: "[32mAlexandru Dorinel[39m",
+    [34mmiddle_name[39m: "[32m-[39m",
+    [34mlast_name[39m: "[32mAna[39m",
+    [34mdob[39m: "[32m1996-08-14[39m",
+    [34mnationality[39m: "[32mROU[39m",
+    [34mdoc_type[39m: "[32mPPT[39m",
+    [34mdoc_number[39m: "[32m0600172[39m",
+    [34mdoc_expiry[39m: "[32m2031-07-31[39m",
+    [34mcompany_id[39m: "[32m1[39m",
+    [34mcreated_at[39m: "[32m2024-01-07 21:58:07[39m",
+    [34mupdated_at[39m: "[32m2024-01-07 21:58:07[39m",
+    [34mcompanies[39m: [34;4mIlluminate\Database\Eloquent\Collection[39;24m {#7268
+      [34mall[39m: [],
+    },
+  }
+
