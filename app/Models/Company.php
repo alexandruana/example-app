@@ -11,8 +11,8 @@ class Company extends Model
 
     protected $fillable = ['company_name','company_street','company_postcode','company_city','company_country','company_tax_id','client_id'];
     
-    public function client()
+    public function clients()
     {
-        return $this->belongsTo(Client::class);
+        return $this->hasMany(Client::class);
     }
 }

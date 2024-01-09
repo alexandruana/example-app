@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('nationality');
             $table->string('doc_type');
             $table->string('doc_number');
-            $table->string('doc_expiry');
-            $table->string('company_id');
+            $table->string('doc_expiry');         
+            $table->unsignedBigInteger('company_id')->nullable(); // Foreign key column
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

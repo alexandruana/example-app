@@ -19,10 +19,6 @@ return new class extends Migration
             $table->string('company_city');
             $table->string('company_country');
             $table->string('company_tax_id')->nullable();
-
-            $table->unsignedBigInteger('client_id')->nullable(); // Foreign key column
-            $table->foreign('client_id')->references('id')->on('clients');
-
             $table->timestamps();
         });
     }

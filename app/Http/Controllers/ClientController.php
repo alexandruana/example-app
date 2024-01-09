@@ -73,10 +73,7 @@ class ClientController extends Controller
 
     public function show($id)
     {
-        // Retrieve the client with the given id along with their companies
-        $client = Client::with('companies')->findOrFail($id);
-
-        // Pass the client data to the view
-        return view('clients.client_account', ['client' => $client]);
+        $client = Client::with('company')->findOrFail($id);
+        return view('clients.client_account', compact('client'));
     }
 }

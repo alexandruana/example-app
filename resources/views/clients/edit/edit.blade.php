@@ -63,7 +63,7 @@
                          name="doc_expiry" required><br>
                  </div>
                  <div class="flex flex-col gep-y-2">
-                     <label for="company_id">Company ID:</label>
+                     <label for="company_id">Doc. Expiry:</label>
                      <input class="px-2 h-10 border border-black" value="{{ $client->company_id }}" type="number"
                          name="company_id"><br>
                  </div>

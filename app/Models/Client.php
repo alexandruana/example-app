@@ -11,8 +11,8 @@ class Client extends Model
 
     protected $fillable = ['first_name','middle_name','last_name','dob','nationality','doc_type','doc_number','doc_expiry','company_id'];
 
-    public function companies()
+    public function company()
     {
-        return $this->hasMany(Company::class);
+        return $this->belongsTo(Company::class);
     }
 }
