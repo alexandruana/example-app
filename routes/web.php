@@ -21,6 +21,8 @@ Route::resource('clients', ClientController::class);
 Route::resource('companies', CompanyController::class);
 
 Route::get('/client/{id}', [ClientController::class, 'show']);
+Route::get('/clients/{id}', [ClientController::class, 'show'])->name('clients.show');
+
 
 Route::get('/', function () {
     return view('welcome');
