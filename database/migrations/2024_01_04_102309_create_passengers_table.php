@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->date('dob');
+            $table->string('gender');
+            $table->date('date_of_birth');
             $table->string('nationality');
-            $table->string('doc_type');
-            $table->string('doc_number');
-            $table->string('doc_expiry');         
+            $table->boolean('isCharterer');
             $table->unsignedBigInteger('company_id')->nullable(); // Foreign key column
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
