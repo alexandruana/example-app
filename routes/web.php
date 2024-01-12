@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,8 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/post', [PassengerController::class, 'store']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

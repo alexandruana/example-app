@@ -27,7 +27,7 @@ class PassengerController extends Controller
             'last_name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'nationality' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
+            'isCharterer' => 'boolean',
             'company_id' => 'nullable|max:255'
         ]);
         Client::create($validatedData);

@@ -40,7 +40,7 @@
                         </div>
                         <!-- Radio buttons for gender -->
                         <div class="flex items-center mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
                                 Gender
                             </label>
                             <div class="flex ml-2">
@@ -58,7 +58,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        <button 
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"
+                            @click.prevent="submit">
                             SUBMIT
                         </button>
                     </div>
@@ -69,6 +71,7 @@
 </template>
 
 <script>
+import { Inertia } from '@inertiajs/inertia';
 export default {
     data() {
         return {
@@ -81,6 +84,11 @@ export default {
                 gender: '',
             }
         };
+    },
+    methods: {
+        submit() {
+            Inertia.post('/post', this.passenger);
+        }
     }
 };
 </script>
