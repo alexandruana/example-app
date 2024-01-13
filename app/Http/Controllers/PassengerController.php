@@ -67,11 +67,12 @@ class PassengerController extends Controller
             ->with('success', 'Passenger record updated successfully.');
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $passenger = Passenger::findOrFail($id);
         $passenger->delete();
-        return redirect()->route('passengers.index')->with('success', 'Passenger record deleted successfully.');
+
+        return Inertia::location('/dashboard');
     }
 
     public function show($id)

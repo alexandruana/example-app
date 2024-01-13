@@ -17,6 +17,7 @@ use Inertia\Inertia;
 |
 */
 Route::get('/passengers', [PassengersController::class, 'index']);
+Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
 Route::post('/post', [PassengerController::class, 'store']);
 
 Route::get('/', function () {
