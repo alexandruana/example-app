@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+
 use Illuminate\Http\Request;
 
 use App\Models\Passenger;
@@ -10,8 +12,10 @@ class PassengerController extends Controller
 {
     public function index()
     {
-        $passengers = Passenger::all();
-        return view('passengers.index', compact('passengers'));
+        $passengers = Passenger::all(); // Fetch all passengers
+        return Inertia::render('Dashboard', [
+            'passengers' => $passengers
+        ]);
     }
 
     public function create()
@@ -25,15 +29,17 @@ class PassengerController extends Controller
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|max:255',
             'last_name' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'nationality' => 'required|string|max:255',
-            'isCharterer' => 'boolean',
+            'isCharterer' => 'nullable|boolean',
             'company_id' => 'nullable|max:255'
         ]);
         Passenger::create($validatedData);
-        return redirect()
+        return Inertia::location('/dashboard');
+/*         return redirect()
             ->route('passengers.index')
-            ->with('success', 'Passenger registered successfully.');
+            ->with('success', 'Passenger registered successfully.'); */
     }
 
     public function edit(string $id)
@@ -49,14 +55,15 @@ class PassengerController extends Controller
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|max:255',
             'last_name' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
             'nationality' => 'required|string|max:255',
-            'isCharterer' => 'boolean',
+            'isCharterer' => 'nullable|boolean',
             'company_id' => 'nullable|max:255'
         ]);
         $passenger->update($validatedData);
         return redirect()
-            ->route('passengers.index')
+            ->route('/dashboard')
             ->with('success', 'Passenger record updated successfully.');
     }
 

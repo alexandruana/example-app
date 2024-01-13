@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('gender');
             $table->date('date_of_birth');
             $table->string('nationality');
-            $table->boolean('isCharterer');
+            $table->boolean('isCharterer')->nullable();
             $table->unsignedBigInteger('company_id')->nullable(); // Foreign key column
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();

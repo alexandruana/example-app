@@ -16,7 +16,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/passengers', [PassengersController::class, 'index']);
 Route::post('/post', [PassengerController::class, 'store']);
 
 Route::get('/', function () {
@@ -28,9 +28,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [PassengerController::class, 'index'])
+     ->middleware(['auth', 'verified'])
+     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,7 +1,15 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ClientForm from '@/Components/Client/ClientForm.vue';
+import PassengerTable from '@/Components/Client/PassengerTable.vue';
 import { Head } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
+
+// Define the props received from the Laravel controller
+const props = defineProps({
+  passengers: Array
+});
+
 </script>
 
 <template>
@@ -18,7 +26,16 @@ import { Head } from '@inertiajs/vue3';
                     <div class="p-6 text-gray-900">You're logged in!</div>
                 </div>
                 <div>
-                    <ClientForm />
+                    <div class="mx-auto mt-5">
+                        <div class="flex flex-wrap">
+                            <div class="w-full md:w-3/4">
+                                <PassengerTable :passengers="props.passengers"/>
+                            </div>
+                            <div class="w-full md:w-1/4">
+                                <ClientForm />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
