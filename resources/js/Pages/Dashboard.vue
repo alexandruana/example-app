@@ -4,11 +4,19 @@ import ClientForm from '@/Components/Client/ClientForm.vue';
 import PassengerTable from '@/Components/Client/PassengerTable.vue';
 import { Head } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
+import { ref } from 'vue';
+
 
 // Define the props received from the Laravel controller
 const props = defineProps({
   passengers: Array
 });
+
+const selectedPassenger = ref(null);
+
+const handleEdit = (passenger) => {
+  selectedPassenger.value = passenger;
+};
 
 </script>
 
@@ -29,7 +37,7 @@ const props = defineProps({
                     <div class="mx-auto mt-5">
                         <div class="flex flex-wrap">
                             <div class="w-full md:w-3/4">
-                                <PassengerTable :passengers="props.passengers"/>
+                                <PassengerTable :passengers="props.passengers" @edit-passenger="handleEdit"/>
                             </div>
                             <div class="w-full md:w-1/4">
                                 <ClientForm />

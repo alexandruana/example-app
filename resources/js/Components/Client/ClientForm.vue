@@ -1,3 +1,20 @@
+<script setup>
+import { Inertia } from '@inertiajs/inertia';
+import { reactive, toRefs } from 'vue';
+
+const passenger = reactive({
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    date_of_birth: '',
+    nationality: '',
+    gender: '',
+});
+
+function submit() {
+    Inertia.post('/post', passenger);
+}
+</script>
 <template>
     <div class="mx-auto mt-5">
         <div class="flex justify-center flex-wrap">
@@ -70,26 +87,3 @@
         </div>
     </div>
 </template>
-
-<script>
-import { Inertia } from '@inertiajs/inertia'
-export default {
-    data() {
-        return {
-            passenger: {
-                first_name: '',
-                middle_name: '',
-                last_name: '',
-                date_of_birth: '',
-                nationality: '',
-                gender: '',
-            }
-        };
-    },
-    methods: {
-        submit() {
-            Inertia.post('/post', this.passenger);
-        }
-    }
-};
-</script>
