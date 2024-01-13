@@ -10,7 +10,7 @@ class PassengerController extends Controller
 {
     public function index()
     {
-        $clients = Client::all();
+        $passengers = Passenger::all();
         return view('passengers.index', compact('passengers'));
     }
 
@@ -30,7 +30,7 @@ class PassengerController extends Controller
             'isCharterer' => 'boolean',
             'company_id' => 'nullable|max:255'
         ]);
-        Client::create($validatedData);
+        Passenger::create($validatedData);
         return redirect()
             ->route('passengers.index')
             ->with('success', 'Passenger registered successfully.');
@@ -69,7 +69,7 @@ class PassengerController extends Controller
 
     public function show($id)
     {
-        $client = Client::with('company')->findOrFail($id);
+        $passenger = Passenger::with('company')->findOrFail($id);
         return view('passengers.passenger_account', compact('passenger'));
     }
 }
