@@ -1,21 +1,20 @@
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue';
+import { defineProps, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import EditPassengerModal from '@/Components/Client/EditPassengerModal.vue'
 
 // Define props
 const props = defineProps({
   passengers: Array
 });
 
-// Define emits
-const emit = defineEmits(['edit-passenger']);
-
 // Method to edit passenger
-function editPassenger(passenger) {
-  emit('edit-passenger', passenger);
-  console.log('Editing passenger:', passenger);
-};
+const selectedPassenger = ref(null);
 
+function editPassenger(passenger) {
+    selectedPassenger.value = passenger;
+    // Existing functionality
+}
 
 const deletePassenger = (id) => {
   if (confirm('Are you sure you want to delete this passenger?')) {
@@ -62,5 +61,10 @@ const deletePassenger = (id) => {
                 </tr>
             </tbody>
         </table>
+        <EditPassengerModal
+            v-if="selectedPassenger"
+            :passenger="selectedPassenger"
+            @close-modal="selectedPassenger = null"
+        />
     </div>
 </template>

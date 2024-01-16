@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TravelDocumentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,9 +17,18 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Travel Documents Routes
+Route::get('/travel-documents', [TravelDocumentController::class, 'index'])->name('travel-documents.index');
+Route::post('/travel-documents', [TravelDocumentController::class, 'store'])->name('travel-documents.store');
+Route::put('/travel-documents/{travelDocument}', [TravelDocumentController::class, 'update'])->name('travel-documents.update');
+Route::delete('/travel-documents/{travelDocument}', [TravelDocumentController::class, 'destroy'])->name('travel-documents.destroy');
 Route::get('/passengers', [PassengersController::class, 'index']);
+Route::put('/passengers/{id}', [PassengerController::class, 'update']);
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
 Route::post('/post', [PassengerController::class, 'store']);
+
+// Travel Documents Routes End
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

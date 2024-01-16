@@ -1,6 +1,6 @@
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 
 const passenger = reactive({
     first_name: '',

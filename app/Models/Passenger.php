@@ -15,4 +15,9 @@ class Passenger extends Model
     {
         return $this->belongsTo(Company::class, 'company_id');
     }
+
+    public function travelDocuments()
+    {
+        return $this->hasMany(TravelDocument::class);
+    }
 }

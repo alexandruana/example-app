@@ -62,9 +62,11 @@ class PassengerController extends Controller
             'company_id' => 'nullable|max:255'
         ]);
         $passenger->update($validatedData);
-        return redirect()
+        return Inertia::location('/dashboard');
+
+        /* return redirect()
             ->route('/dashboard')
-            ->with('success', 'Passenger record updated successfully.');
+            ->with('success', 'Passenger record updated successfully.'); */
     }
 
     public function destroy($id)
