@@ -36,11 +36,8 @@ const handleEdit = (passenger) => {
                 <div>
                     <div class="mx-auto mt-5">
                         <div class="flex flex-wrap">
-                            <div class="w-full md:w-3/4">
+                            <div class="w-full">
                                 <PassengerTable :passengers="props.passengers" @edit-passenger="handleEdit"/>
-                            </div>
-                            <div class="w-full md:w-1/4">
-                                <ClientForm />
                             </div>
                         </div>
                     </div>
