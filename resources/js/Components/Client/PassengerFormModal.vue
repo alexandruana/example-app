@@ -1,6 +1,8 @@
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
-import { reactive } from 'vue';
+import { reactive, defineEmits } from 'vue';
+
+const emits = defineEmits(['close-modal']);
 
 const passenger = reactive({
     first_name: '',
@@ -14,6 +16,11 @@ const passenger = reactive({
 function submit() {
     Inertia.post('/post', passenger);
 }
+
+const closeModal = () => {
+  emits('close-modal');
+};
+
 </script>
 <template>
     <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
@@ -103,7 +110,10 @@ function submit() {
                             type="submit">
                             SUBMIT
                         </button>
-                        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <button
+                            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            @click="closeModal"
+                        >
                             Cancel
                     </button>
                     </div>

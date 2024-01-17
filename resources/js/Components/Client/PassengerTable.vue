@@ -9,7 +9,12 @@ const props = defineProps({
   passengers: Array
 });
 
-const addPassenger = ref(false);
+// Logic to open AddPassengerModal
+const showPassengerForm = ref(false);
+
+const toggleModal = () => {
+    showPassengerForm.value = !showPassengerForm.value
+}
 
 // Method to edit passenger
 const selectedPassenger = ref(null);
@@ -19,6 +24,7 @@ function editPassenger(passenger) {
     // Existing functionality
 }
 
+// Method to delete passenger
 const deletePassenger = (id) => {
   if (confirm('Are you sure you want to delete this passenger?')) {
     Inertia.delete(`/passengers/${id}`);
@@ -30,12 +36,15 @@ const deletePassenger = (id) => {
     <div class="mx-auto mt-5">
         <div class="flex justify-between">
             <h4 class="text-lg font-semibold mb-4">List of employee</h4>
-            <button @click="addPassenger = true" @close="addPassenger = false" class="text-sky-500 hover:text-sky-400">
+            <button
+                class="text-sky-500 hover:text-sky-400"
+                @click="toggleModal"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                 </svg>
             </button>
-            <PassengerFormModal v-if="addPassenger"/>
+            <PassengerFormModal v-if="showPassengerForm" @close-modal="toggleModal"/>
         </div>
         <table class="table-auto w-full">
             <thead>

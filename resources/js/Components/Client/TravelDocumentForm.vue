@@ -1,85 +1,85 @@
 	<template>
-	<div class="container mx-auto p-4">
-		<form @submit.prevent="submitForm" class="w-full max-w-lg">
+	<div class="container mx-auto">
+		<form @submit.prevent="submitForm" class="">
 			<div class="flex flex-wrap -mx-3 mb-6">
-				<div class="w-full px-3">
+				<div class="px-3">
 					<label 
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" 
+						class="block text-gray-700 text-sm font-bold mb-2" 
 						for="document_type">
 							Document Type
 					</label>
 					<input 
 						v-model="travelDocument.document_type" 
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="text"
 						placeholder="Document Type">
 				</div>
-				<div class="w-full px-3">
+				<div class="px-3">
 					<label
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						class="block text-gray-700 text-sm font-bold mb-2"
 						for="country">
 							Country
 					</label>
 					<input
 						v-model="travelDocument.country"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="text"
 						placeholder="Issuing Country">
 				</div>
-				<div class="w-full px-3">
+				<div class="px-3">
 					<label
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						class="block text-gray-700 text-sm font-bold mb-2"
 						for="document_number">
 							Document Number
 					</label>
 					<input
 						v-model="travelDocument.document_number"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="text"
 						placeholder="Number">
 				</div>
-				<div class="w-full px-3">
+				<div class="px-3">
 					<label
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						class="block text-gray-700 text-sm font-bold mb-2"
 						for="issuing_date">
 							Issuing Date
 					</label>
 					<input
 						v-model="travelDocument.issuing_date"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="date"
 						placeholder="Enter Issuing Date">
 				</div>
-				<div class="w-full px-3">
+				<div class="px-3">
 					<label
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						class="block text-gray-700 text-sm font-bold mb-2"
 						for="expiry_date">
 							Expiry Date
 					</label>
 					<input
 						v-model="travelDocument.expiry_date"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						type="date"
 						placeholder="Enter Issuing Date">
 				</div>
-			</div>
-			<!-- Repeat the above div for each field ('country', 'document_number', etc.) with appropriate type and placeholder -->
-			<div class="w-full px-3">
-				<label
-					class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-					for="isPrimary">
-					Primary Document
-				</label>
-				<input
-					v-model="travelDocument.isPrimary"
-					class="leading-tight"
-					type="checkbox">
-			</div>
-
-			<div class="flex items-center justify-between">
-				<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-					Add Document
-				</button>
+				<div class="px-3">
+					<label
+						class="block text-gray-700 text-sm font-bold mb-2"
+						for="isPrimary">
+						Default
+					</label>
+					<input
+						v-model="travelDocument.isPrimary"
+						class="leading-tight"
+						type="checkbox">
+				</div>
+				<div class="px-3 flex items-end">
+					<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+						</svg>
+					</button>
+				</div>
 			</div>
 		</form>
 	</div>
