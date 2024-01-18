@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import EditPassengerModal from '@/Components/Client/EditPassengerModal.vue'
+import PassengerProfileModal from '@/Components/Client/PassengerProfileModal.vue'
 import PassengerFormModal from '@/Components/Client/PassengerFormModal.vue'
 
 // Define props
@@ -81,7 +81,7 @@ const deletePassenger = (id) => {
                 </tr>
             </tbody>
         </table>
-        <EditPassengerModal
+        <PassengerProfileModal
             v-if="selectedPassenger"
             :passenger="selectedPassenger"
             @close-modal="selectedPassenger = null"
