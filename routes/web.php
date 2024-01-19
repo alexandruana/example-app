@@ -18,11 +18,18 @@ use Inertia\Inertia;
 |
 */
 
-// Travel Documents Routes
-Route::get('/travel-documents', [TravelDocumentController::class, 'index'])->name('travel-documents.index');
-Route::post('/travel-documents', [TravelDocumentController::class, 'store'])->name('travel-documents.store');
-Route::put('/travel-documents/{travelDocument}', [TravelDocumentController::class, 'update'])->name('travel-documents.update');
-Route::delete('/travel-documents/{travelDocument}', [TravelDocumentController::class, 'destroy'])->name('travel-documents.destroy');
+// Routes for Travel Documents of a specific Passenger
+Route::group(['prefix' => 'passengers/{passengerId}/travelDocuments'], function () {
+    Route::get('/', [TravelDocumentController::class, 'index'])->name('travelDocuments.index');
+    Route::get('/create', [TravelDocumentController::class, 'create'])->name('travelDocuments.create');
+    Route::post('/', [TravelDocumentController::class, 'store'])->name('travelDocuments.store');
+    Route::get('/{documentId}', [TravelDocumentController::class, 'show'])->name('travelDocuments.show');
+    Route::get('/{documentId}/edit', [TravelDocumentController::class, 'edit'])->name('travelDocuments.edit');
+    Route::put('/{documentId}', [TravelDocumentController::class, 'update'])->name('travelDocuments.update');
+    Route::delete('/{documentId}', [TravelDocumentController::class, 'destroy'])->name('travelDocuments.destroy');
+});
+
+// Passengers Routes
 Route::get('/passengers', [PassengersController::class, 'index']);
 Route::put('/passengers/{id}', [PassengerController::class, 'update']);
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');

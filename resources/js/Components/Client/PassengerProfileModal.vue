@@ -49,7 +49,9 @@
                     </form>
                 </div>
                 <div class="col-span-2">
-                    <TravelDocumentForm :passenger-id="passenger.id"/>
+                    <h2>Travel Documents</h2>
+                    <!-- Travel Document Manager Section -->
+                    <TravelDocumentManager :passengerId="passenger.id" :travelDocuments="passenger.travelDocuments" />
                 </div>
             </div>
         </div>
@@ -59,7 +61,9 @@
   <script setup>
   import { defineProps, ref } from 'vue';
   import { Inertia } from '@inertiajs/inertia';
-  import TravelDocumentForm from './TravelDocumentForm.vue';
+  import TravelDocumentManager from '@/Components/Client/TravelDocumentManager.vue';
+
+
   const props = defineProps({
     passenger: Object
   });

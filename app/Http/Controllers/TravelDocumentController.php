@@ -1,78 +1,98 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\TravelDocument;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use App\Models\TravelDocument;
+use App\Models\Passenger;
+use Illuminate\Http\Request;
 
 class TravelDocumentController extends Controller
 {
-    /**
-     * Display a listing of the travel documents.
-     */
-    public function index()
+    // Display a listing of travel documents for a specific passenger
+    public function index($passengerId)
     {
-        $travelDocuments = TravelDocument::all();
-        return Inertia::render('TravelDocuments/Index', ['travelDocuments' => $travelDocuments]);
+        $passenger = Passenger::with('travelDocuments')->findOrFail($passengerId);
+
+        // Debugging: Inspect the passenger data
+        \Log::debug('Passenger with travel documents', $passenger->toArray());
+
+
+        return Inertia::render('TravelDocuments/Index', [
+            'passenger' => $passenger,
+            // The travelDocuments are now included with the passenger, so no need to send separately
+        ]);
     }
 
-    /**
-     * Store a newly created travel document in storage.
-     */
-    public function store(Request $request)
+    // Show the form for creating a new travel document for a specific passenger
+    public function create($passengerId)
     {
-        Log::info('Storing new travel document', ['request_data' => $request->all()]);
-
-        try {
-            $validatedData = $request->validate([
-                'passenger_id' => 'required|exists:passengers,id',
-                'country' => 'required|string|max:255',
-                'document_number' => 'required|string|max:255',
-                'issuing_date' => 'required|date',
-                'expiry_date' => 'required|date|after:issuing_date',
-                'isPrimary' => 'required|boolean',
-            ]);
-            
-            $travelDocument = TravelDocument::create($validatedData);
-            return redirect()->back()->with('message', 'Travel Document Created Successfully.');
-
-        } catch (\Exception $e) {
-            Log::error('Error storing travel document', ['error' => $e->getMessage()]);
-            // Handle the error appropriately
-        }
+        return Inertia::render('TravelDocuments/Create', [
+            'passengerId' => $passengerId
+        ]);
     }
 
-    /**
-     * Update the specified travel document in storage.
-     */
-    public function update(Request $request, TravelDocument $travelDocument)
+    // Store a newly created travel document in storage for a specific passenger
+    public function store(Request $request, $passengerId)
     {
-        Log::info('Updating travel document', ['request_data' => $request->all(), 'travel_document_id' => $travelDocument->id]);
+        $request->validate([
+            'country' => 'required|string',
+            'document_number' => 'required|string',
+            'issuing_date' => 'required|date',
+            'expiry_date' => 'required|date'
+        ]);
 
-        try {
-            $validatedData = $request->validate([
-                'country' => 'required|string|max:255',
-                'document_number' => 'required|string|max:255',
-                'issuing_date' => 'required|date',
-                'expiry_date' => 'required|date|after:issuing_date',
-                'isPrimary' => 'required|boolean',
-            ]);
-            $travelDocument->update($validatedData);
-            return redirect()->back()->with('message', 'Travel Document Updated Successfully.');
-        } catch (\Exception $e) {
-            Log::error('Error updating travel document', ['error' => $e->getMessage()]);
-            // Handle the error appropriately
-        }
+        $passenger = Passenger::findOrFail($passengerId);
+        $passenger->travelDocuments()->create($request->all());
+
+        return redirect()->route('travelDocuments.index', ['passenger' => $passengerId]);
     }
 
-    /**
-     * Remove the specified travel document from storage.
-     */
-    public function destroy(TravelDocument $travelDocument)
+    // Display the specified travel document
+    public function show($passengerId, $documentId)
     {
+        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
+                                        ->findOrFail($documentId);
+
+        return Inertia::render('TravelDocuments/Show', [
+            'travelDocument' => $travelDocument
+        ]);
+    }
+
+    // Show the form for editing the specified travel document
+    public function edit($passengerId, $documentId)
+    {
+        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
+                                        ->findOrFail($documentId);
+
+        return Inertia::render('TravelDocuments/Edit', [
+            'travelDocument' => $travelDocument
+        ]);
+    }
+
+    // Update the specified travel document in storage
+    public function update(Request $request, $passengerId, $documentId)
+    {
+        $request->validate([
+            'country' => 'required|string',
+            'document_number' => 'required|string',
+            'issuing_date' => 'required|date',
+            'expiry_date' => 'required|date'
+        ]);
+
+        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
+                                        ->findOrFail($documentId);
+        $travelDocument->update($request->all());
+
+        return redirect()->route('travelDocuments.index', ['passenger' => $passengerId]);
+    }
+
+    // Remove the specified travel document from storage
+    public function destroy($passengerId, $documentId)
+    {
+        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
+                                        ->findOrFail($documentId);
         $travelDocument->delete();
-        return redirect()->back()->with('message', 'Travel Document Deleted Successfully.');
+
+        return redirect()->route('travelDocuments.index', ['passenger' => $passengerId]);
     }
 }

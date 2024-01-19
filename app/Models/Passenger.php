@@ -20,4 +20,5 @@ class Passenger extends Model
     {
         return $this->hasMany(TravelDocument::class);
     }
+
 }
