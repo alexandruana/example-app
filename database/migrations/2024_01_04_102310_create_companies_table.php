@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('passenger_id'); // Foreign key to passengers table
             $table->string('company_name');
             $table->string('company_street');
             $table->string('company_postcode');
@@ -20,6 +21,9 @@ return new class extends Migration
             $table->string('company_country');
             $table->string('company_tax_id')->nullable();
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('passenger_id')->references('id')->on('passengers')->onDelete('cascade');
         });
     }
 

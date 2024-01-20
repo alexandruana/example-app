@@ -11,9 +11,9 @@ class Passenger extends Model
 
     protected $fillable = ['first_name','middle_name','last_name','date_of_birth','nationality','gender','isCharterer','company_id'];
 
-    public function company()
+    public function companies()
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->hasMany(Company::class);
     }
 
     public function travelDocuments()

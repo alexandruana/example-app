@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Company;
 
 class CompanyController extends Controller
@@ -16,62 +15,49 @@ class CompanyController extends Controller
 
     public function create()
     {
-        return view('companies.create.create');
+        return view('companies.create');
     }
 
-     /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'company_name' => 'required|string|max:255',
-            'company_street' => 'required|string|max:255',
-            'company_postcode' => 'required|string|max:255',
-            'company_city' => 'required|string|max:255',
-            'company_country' => 'required|string|max:255',
-            'company_tax_id' => 'nullable|max:255',
-            'client_id' => 'nullable|exists:clients,id',
-        ]);
+        $validatedData = $this->validateCompany($request);
         Company::create($validatedData);
-        return redirect()
-            ->route('companies.index')
-            ->with('success', 'Company registered successfully.');
+
+        return redirect()->route('companies.index')
+                         ->with('success', 'Company registered successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Company $company)
     {
-        $company = Company::findOrFail($id);
-        return view('companies.edit.edit', compact('company'));
+        return view('companies.edit', compact('company'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Company $company)
     {
-        $company = Company::findOrFail($id);
-        $validatedData = $request->validate([
+        $validatedData = $this->validateCompany($request);
+        $company->update($validatedData);
+
+        return redirect()->route('companies.index')
+                         ->with('success', 'Company record updated successfully.');
+    }
+
+    public function destroy(Company $company)
+    {
+        $company->delete();
+        return redirect()->route('companies.index')
+                         ->with('success', 'Company record deleted successfully.');
+    }
+
+    protected function validateCompany(Request $request)
+    {
+        return $request->validate([
             'company_name' => 'required|string|max:255',
             'company_street' => 'required|string|max:255',
             'company_postcode' => 'required|string|max:255',
             'company_city' => 'required|string|max:255',
             'company_country' => 'required|string|max:255',
-            'company_tax_id' => 'nullable|max:255',
+            'company_tax_id' => 'nullable|string|max:255',
+            // 'client_id' => 'nullable|exists:clients,id', // Uncomment if applicable
         ]);
-        $company->update($validatedData);
-        return redirect()
-            ->route('companies.index')
-            ->with('success', 'Company record updated successfully.');
-    }
-
-    public function destroy(string $id)
-    {
-        $company = Company::findOrFail($id);
-        $company->delete();
-        return redirect()->route('companies.index')->with('success', 'Company record deleted successfully.');
     }
 }

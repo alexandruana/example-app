@@ -1,8 +1,8 @@
 <template>
     <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" @click.self="$emit('close-modal')">
         <div class="relative top-20 mx-auto p-5 border w-3/4 shadow-lg rounded-md bg-white">
-            <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2 border-b-4 border-sky-200">
+            <div class="grid grid-cols-6 gap-4 border-b-4 border-sky-200">
+                <div class="col-span-3">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Edit Passenger</h3>
                     <form @submit.prevent="updatePassenger" class="w-1/3 mb-5">
                         <div class="mb-4">
@@ -48,11 +48,15 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-span-2">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Travel Documents</h3>
-                    <!-- Travel Document Manager Section -->
-                    <TravelDocumentManager :passengerId="passenger.id"/>
+                <div class="col-span-3">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Companies</h3>
+                    <CompanyManager :passengerId="passenger.id" />
                 </div>
+            </div>
+            <div class="col-span-2">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Travel Documents</h3>
+                <!-- Travel Document Manager Section -->
+                <TravelDocumentManager :passengerId="passenger.id"/>
             </div>
         </div>
     </div>
@@ -62,6 +66,7 @@
   import { defineProps, ref } from 'vue';
   import { Inertia } from '@inertiajs/inertia';
   import TravelDocumentManager from '@/Components/Client/TravelDocumentManager.vue';
+  import CompanyManager from '@/Components/Client/CompanyManager.vue';
 
   const props = defineProps({
     passenger: Object,

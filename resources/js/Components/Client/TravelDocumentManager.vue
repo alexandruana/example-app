@@ -34,7 +34,8 @@
                 required
             >
             <label>
-                <input type="checkbox" v-model="form.isDefault"> Is Default
+                Default
+                <input type="checkbox" v-model="form.isDefault" class="text-center">
             </label>
             <button
                 class="ml-6 rounded-full bg-sky-500 py-2 px-6 font-semibold text-white hover:border-white/20 hover:bg-sky-500/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-900"

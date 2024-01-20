@@ -20,8 +20,6 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('nationality');
             $table->boolean('isCharterer')->nullable();
-            $table->unsignedBigInteger('company_id')->nullable(); // Foreign key column
-            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }
