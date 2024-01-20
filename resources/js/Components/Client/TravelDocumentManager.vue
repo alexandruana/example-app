@@ -2,6 +2,7 @@
     <div>
         <form @submit.prevent="isEditMode ? updateDocument() : addDocument()" class="flex mb-5">
             <input 
+                id="document_type"
                 class="md:w-2/6 mr-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 v-model="form.document_type" placeholder="Document Type" required
                 type="text"
@@ -124,29 +125,29 @@
   };
   
   const addDocument = async () => {
-      try {
-          await axios.post(`/api/passengers/${props.passengerId}/travelDocuments`, form.value);
-          fetchTravelDocuments();
-          resetForm();
-      } catch (error) {
-          console.error('Error adding travel document:', error);
-      }
-  };
+        try {
+            await axios.post(`/api/passengers/${props.passengerId}/travelDocuments`, form.value);
+            fetchTravelDocuments();
+            resetForm();
+        } catch (error) {
+            console.error('Error adding travel document:', error);
+        }
+    };
   
   const updateDocument = async () => {
-      try {
-          await axios.put(`/api/passengers/${props.passengerId}/travelDocuments/${currentDocumentId.value}`, form.value);
-          fetchTravelDocuments();
-          resetForm();
-      } catch (error) {
-          console.error('Error updating travel document:', error);
-      }
+        try {
+            await axios.put(`/api/passengers/${props.passengerId}/travelDocuments/${currentDocumentId.value}`, form.value);
+            fetchTravelDocuments();
+            resetForm();
+        } catch (error) {
+            console.error('Error updating travel document:', error);
+        }
   };
   
   const deleteDocument = async (documentId) => {
       try {
           await axios.delete(`/api/passengers/${props.passengerId}/travelDocuments/${documentId}`);
-          fetchTravelDocuments();
+          fetchravelDocuments();
       } catch (error) {
           console.error('Error deleting travel document:', error);
       }

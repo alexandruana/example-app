@@ -1,10 +1,10 @@
 <template>
     <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" @click.self="$emit('close-modal')">
         <div class="relative top-20 mx-auto p-5 border w-3/4 shadow-lg rounded-md bg-white">
-            <div class="grid grid-cols-6 gap-4 border-b-4 border-sky-200">
-                <div class="col-span-3">
+            <div class="grid grid-cols-6 gap-4 mb-3 py-5">
+                <div class="col-span-2 border-r-2 border-sky-200">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Edit Passenger</h3>
-                    <form @submit.prevent="updatePassenger" class="w-1/3 mb-5">
+                    <form @submit.prevent="updatePassenger" class="mb-5 w-2/3">
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">First Name</label>
                             <input v-model="editData.first_name" type="text" id="first_name" 
@@ -48,12 +48,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-span-3">
+                <div class="col-span-4">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Companies</h3>
                     <CompanyManager :passengerId="passenger.id" />
                 </div>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-6 border-t-2 border-sky-200 py-5">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Travel Documents</h3>
                 <!-- Travel Document Manager Section -->
                 <TravelDocumentManager :passengerId="passenger.id"/>

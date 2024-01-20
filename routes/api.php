@@ -24,10 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 use App\Http\Controllers\CompanyController;
 
 // API routes for Companies
-Route::get('/passengers/{passenger}/companies', [CompanyController::class, 'index']);
-Route::post('/passengers/{passenger}/companies', [CompanyController::class, 'store']);
-Route::put('/passengers/{passenger}/companies/{company}', [CompanyController::class, 'update']);
-Route::delete('/passengers/{passenger}/companies/{company}', [CompanyController::class, 'destroy']);
+Route::get('/passengers/{passengerId}/companies', [CompanyController::class, 'index']);
+Route::post('/passengers/{passengerId}/companies', [CompanyController::class, 'store']);
+Route::put('/passengers/{passengerId}/companies/{companyId}', [CompanyController::class, 'update']);
+Route::delete('/passengers/{passengerId}/companies/{company}', [CompanyController::class, 'destroy']);
 
 // API routes for Travel Documents
 Route::get('/passengers/{passengerId}/travelDocuments', [TravelDocumentController::class, 'index']);

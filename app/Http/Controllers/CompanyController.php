@@ -7,10 +7,16 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the companies for a specific passenger.
+     *
+     * @param  int  $passengerId
+     * @return Response
+     */
+    public function index($passengerId)
     {
-        $companies = Company::all();
-        return view('companies.index', compact('companies'));
+        $companies = Company::where('passenger_id', $passengerId)->get();
+        return response()->json($companies);
     }
 
     public function create()
@@ -18,13 +24,31 @@ class CompanyController extends Controller
         return view('companies.create');
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $this->validateCompany($request);
-        Company::create($validatedData);
 
-        return redirect()->route('companies.index')
-                         ->with('success', 'Company registered successfully.');
+    /**
+     * Store a newly created travel document in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $passengerId
+     * @return Response
+     */
+    public function store(Request $request, $passengerId)
+    {
+        $validatedData = $request->validate([
+            'company_name' => 'required|string',
+            'company_street' => 'required|string',
+            'company_postcode' => 'required|string',
+            'company_city' => 'required|string',
+            'company_country' => 'required|string',
+            'company_tax_id' => 'nullable|string'
+        ]);
+
+        $company = new Company();
+        $company->fill($validatedData);
+        $company->passenger_id = $passengerId;
+        $company->save();
+
+        return response()->json($company, 201);
     }
 
     public function edit(Company $company)
@@ -32,13 +56,30 @@ class CompanyController extends Controller
         return view('companies.edit', compact('company'));
     }
 
-    public function update(Request $request, Company $company)
+    /**
+     * Update the specified travel document in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $passengerId
+     * @param  int  $companyId
+     * @return Response
+     */
+    public function update(Request $request, $passengerId, $companyId)
     {
-        $validatedData = $this->validateCompany($request);
+        $validatedData = $request->validate([
+            'company_name' => 'required|string',
+            'company_street' => 'required|string',
+            'company_postcode' => 'required|string',
+            'company_city' => 'required|string',
+            'company_country' => 'required|string',
+            'company_tax_id' => 'nullable|string'
+        ]);
+        
+        $company = Company::where('passenger_id', $passengerId)
+                            ->findOrFail($companyId);
         $company->update($validatedData);
 
-        return redirect()->route('companies.index')
-                         ->with('success', 'Company record updated successfully.');
+        return response()->json($company);
     }
 
     public function destroy(Company $company)
