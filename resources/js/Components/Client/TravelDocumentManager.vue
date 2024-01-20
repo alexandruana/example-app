@@ -145,12 +145,12 @@
   };
   
   const deleteDocument = async (documentId) => {
-      try {
-          await axios.delete(`/api/passengers/${props.passengerId}/travelDocuments/${documentId}`);
-          fetchravelDocuments();
-      } catch (error) {
-          console.error('Error deleting travel document:', error);
-      }
+        try {
+            await axios.delete(`/api/passengers/${props.passengerId}/travelDocuments/${documentId}`);
+            fetchravelDocuments();
+        } catch (error) {
+            console.error('Error deleting travel document:', error);
+        }
   };
   
   const resetForm = () => {

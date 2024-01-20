@@ -168,12 +168,18 @@ const updateCompany = async () => {
         fetchCompanies();
         resetForm();
     } catch (error) {
-        console.error('Error updating travel document:', error);
+        console.error('Error updating company:', error);
     }
 };
 
 const deleteCompany = async (companyId) => {
     // Implementation for deleting a company
+    try {
+        await axios.delete(`/api/passengers/${props.passengerId}/companies/${companyId}`);
+        fetchCompanies();
+    } catch (error) {
+        console.error('Error deleting company:', error);
+    }
 };
 
 const resetForm = () => {

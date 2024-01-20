@@ -82,11 +82,20 @@ class CompanyController extends Controller
         return response()->json($company);
     }
 
-    public function destroy(Company $company)
+    /**
+     * Remove the specified travel document from storage.
+     *
+     * @param  int  $passengerId
+     * @param  int  $documentId
+     * @return Response
+     */
+    public function destroy($passengerId, $companyId)
     {
+        $company = Company::where('passenger_id', $passengerId)
+                            ->findOrFail($companyId);
         $company->delete();
-        return redirect()->route('companies.index')
-                         ->with('success', 'Company record deleted successfully.');
+        
+        return response()->json(null,204);
     }
 
     protected function validateCompany(Request $request)
