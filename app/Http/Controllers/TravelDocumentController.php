@@ -37,13 +37,17 @@ class TravelDocumentController extends Controller
             'isDefault' => 'required|boolean'
         ]);
 
-        // Check if a non-default document already exists
-        if (!$validatedData['isDefault']) {
-            $existingDocument = TravelDocument::where('passenger_id', $passengerId)
-                                            ->where('isDefault', false)
+        // Check if the new document is marked as default
+        if ($validatedData['isDefault']) {
+            // Check for existing default document
+            $existingDefault = TravelDocument::where('passenger_id', $passengerId)
+                                            ->where('isDefault', true)
                                             ->first();
-            if ($existingDocument) {
-                // Handle the existing non-default document (update or throw an exception)
+
+            if ($existingDefault) {
+                // Decide how to handle this scenario
+                // E.g., make the existing document non-default
+                $existingDefault->update(['isDefault' => false]);
             }
         }
 
@@ -52,8 +56,9 @@ class TravelDocumentController extends Controller
         $travelDocument->passenger_id = $passengerId;
         $travelDocument->save();
 
-        return response()->json($travelDocument, 201); // 201 Created
+        return response()->json($travelDocument, 201);
     }
+
 
     /**
      * Update the specified travel document in storage.
