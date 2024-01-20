@@ -51,7 +51,7 @@
                 <div class="col-span-2">
                     <h2>Travel Documents</h2>
                     <!-- Travel Document Manager Section -->
-                    <TravelDocumentManager :passengerId="passenger.id" :travelDocuments="passenger.travelDocuments" />
+                    <TravelDocumentManager :passengerId="passenger.id"/>
                 </div>
             </div>
         </div>
@@ -63,9 +63,8 @@
   import { Inertia } from '@inertiajs/inertia';
   import TravelDocumentManager from '@/Components/Client/TravelDocumentManager.vue';
 
-
   const props = defineProps({
-    passenger: Object
+    passenger: Object,
   });
   
     const editData = ref({ ...props.passenger });

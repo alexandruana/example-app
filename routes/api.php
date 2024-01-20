@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\TravelDocumentController;
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// API routes for Travel Documents
+Route::get('/passengers/{passengerId}/travelDocuments', [TravelDocumentController::class, 'index']);
+Route::post('/passengers/{passengerId}/travelDocuments', [TravelDocumentController::class, 'store']);
+Route::put('/passengers/{passengerId}/travelDocuments/{documentId}', [TravelDocumentController::class, 'update']);
+Route::delete('/passengers/{passengerId}/travelDocuments/{documentId}', [TravelDocumentController::class, 'destroy']);
