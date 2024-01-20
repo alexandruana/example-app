@@ -30,6 +30,7 @@ class TravelDocumentController extends Controller
     public function store(Request $request, $passengerId)
     {
         $validatedData = $request->validate([
+            'document_type' => 'required|string',
             'country' => 'required|string',
             'document_number' => 'required|string',
             'issuing_date' => 'required|date',
@@ -71,6 +72,7 @@ class TravelDocumentController extends Controller
     public function update(Request $request, $passengerId, $documentId)
     {
         $validatedData = $request->validate([
+            'document_type' => 'required|string',
             'country' => 'required|string',
             'document_number' => 'required|string',
             'issuing_date' => 'required|date',

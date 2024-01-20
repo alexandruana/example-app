@@ -10,7 +10,8 @@ class TravelDocument extends Model
     use HasFactory;
 
     protected $fillable = [
-        'passenger_id', 
+        'passenger_id',
+        'document_type',
         'country', 
         'document_number', 
         'issuing_date', 

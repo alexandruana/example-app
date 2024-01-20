@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('passenger_id');
             $table->foreign('passenger_id')->references('id')->on('passengers')->onDelete('cascade');
+            $table->string('document_type');
             $table->string('country');
             $table->string('document_number');
             $table->date('issuing_date');

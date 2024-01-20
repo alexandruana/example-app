@@ -49,7 +49,7 @@
                     </form>
                 </div>
                 <div class="col-span-2">
-                    <h2>Travel Documents</h2>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Travel Documents</h3>
                     <!-- Travel Document Manager Section -->
                     <TravelDocumentManager :passengerId="passenger.id"/>
                 </div>
