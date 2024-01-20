@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TravelDocumentController extends Controller
-}
 {
     /**
      * Display a listing of the travel documents for a specific passenger.
@@ -103,3 +102,4 @@ class TravelDocumentController extends Controller
 
         return response()->json(null, 204); // 204 No Content
     }
+}

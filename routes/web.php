@@ -3,6 +3,7 @@
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TravelDocumentController;
+use App\Http\Controllers\TripController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,9 @@ Route::get('/passengers', [PassengersController::class, 'index']);
 Route::put('/passengers/{id}', [PassengerController::class, 'update']);
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
 Route::post('/post', [PassengerController::class, 'store']);
+
+// Trips Routes
+Route::get('/trips', [TripController::class, 'index'])->name('trips');
 
 // Travel Documents Routes End
 
