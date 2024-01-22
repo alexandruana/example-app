@@ -82,4 +82,11 @@ class PassengerController extends Controller
         $passenger = Passenger::with('company')->findOrFail($id);
         return view('passengers.passenger_account', compact('passenger'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $passengers = Passenger::where('last_name', 'like', "%{$query}%")->get();
+        return response()->json($passengers);
+    }
 }

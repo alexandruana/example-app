@@ -39,8 +39,6 @@ Route::post('/post', [PassengerController::class, 'store']);
 // Trips Routes
 Route::get('/trips', [TripController::class, 'index'])->name('trips');
 
-// Travel Documents Routes End
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

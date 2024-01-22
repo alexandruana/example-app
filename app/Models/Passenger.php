@@ -21,4 +21,9 @@ class Passenger extends Model
         return $this->hasMany(TravelDocument::class);
     }
 
+    public function trips()
+    {
+        return $this->hasMany(Trip::class);
+    }
+
 }
