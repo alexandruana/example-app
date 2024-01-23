@@ -18,6 +18,11 @@ export default {
             fontSize: {
                 base: '14px', // Changing the default font size to 18px
             },
+            colors: {
+                'sky': {
+                    DEFAULT: '#3a3f55'
+                },
+            },        
         },
     },
 
