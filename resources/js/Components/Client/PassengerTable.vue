@@ -1,9 +1,9 @@
 <script setup>
 import { defineProps, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import PassengerProfileModal from '@/Components/Client/PassengerProfileModal.vue'
-import AddPassengerModal from '@/Components/Client/AddPassengerModal.vue'
-import Modal from '@/Components/Modal.vue'
+import EditPassenger from '@/Components/Client/EditPassenger.vue';
+import AddPassenger from '@/Components/Client/AddPassenger.vue';
+import Modal from '@/Components/Modal.vue';
 
 // Define props
 const props = defineProps({
@@ -48,7 +48,7 @@ const deletePassenger = (id) => {
                     Add passenger
                 </button>
                 <Modal :show="showPassengerForm" @close="showPassengerForm = false">
-                    <AddPassengerModal @close-modal="showPassengerForm = false"/>
+                    <AddPassenger @close-modal="showPassengerForm = false"/>
                 </Modal>
             </div>
         </div>
@@ -142,15 +142,11 @@ const deletePassenger = (id) => {
                             </button>
                         </td>
                         </tr>
-
-                    <!-- More people... -->
                 </tbody>
                 </table>
-                <PassengerProfileModal
-                    v-if="selectedPassenger"
-                    :passenger="selectedPassenger"
-                    @close-modal="selectedPassenger = null"
-                />
+                <Modal :show="selectedPassenger" @close="selectedPassenger = null">
+                    <EditPassenger />
+                </Modal>
             </div>
             </div>
         </div>

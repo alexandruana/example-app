@@ -1,5 +1,5 @@
 <script setup>
-import axios from 'axios'; // Import Axios
+import { Inertia } from '@inertiajs/inertia';
 import { reactive, defineEmits } from 'vue';
 
 const emits = defineEmits(['close-modal']);
@@ -14,17 +14,17 @@ const passenger = reactive({
 });
 
 function submit() {
-    axios.post('/api/passengers', passenger) // Ensure correct URL, might be '/api/passengers' or similar
-        .then(response => {
-            // Handle success
-            console.log(response);
+    Inertia.post('/api/passengers', passenger, {
+        onSuccess: (page) => {
+            // Assuming you want to close the modal and possibly emit an event to update the parent component
+            emits('new-passenger-added', page.props.passenger); // Update according to your server response structure
             emits('close-modal');
-            // Additional handling based on response
-        })
-        .catch(error => {
-            // Enhanced error handling
-            console.error('Error:', error.response ? error.response.data : error);
-        });
+        },
+        onError: (errors) => {
+            // Handle errors
+            console.error('Error:', errors);
+        }
+    });
 }
 
 const closeModal = () => {
