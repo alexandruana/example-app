@@ -3,6 +3,7 @@ import { defineProps, ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import PassengerProfileModal from '@/Components/Client/PassengerProfileModal.vue'
 import AddPassengerModal from '@/Components/Client/AddPassengerModal.vue'
+import Modal from '@/Components/Modal.vue'
 
 // Define props
 const props = defineProps({
@@ -46,7 +47,9 @@ const deletePassenger = (id) => {
                     class="block rounded-md bg-sky-500 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Add passenger
                 </button>
-                <AddPassengerModal v-if="showPassengerForm" @close-modal="toggleModal"/>
+                <Modal :show="showPassengerForm" @close="showPassengerForm = false">
+                    <AddPassengerModal @close-modal="showPassengerForm = false"/>
+                </Modal>
             </div>
         </div>
         <div class="mt-8 flow-root">

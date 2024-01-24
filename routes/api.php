@@ -32,6 +32,12 @@ Route::delete('/trips/{trip}', [TripController::class, 'destroy']);
 
 // API routes for Passengers
 Route::get('/search-passengers', [PassengerController::class, 'search']);
+Route::get('/passengers', [PassengerController::class, 'index']);
+Route::post('/passengers', [PassengerController::class, 'store']);
+Route::put('/passengers/{id}', [PassengerController::class, 'update']);
+Route::delete('/passengers/{id}', [PassengerController::class, 'destroy']);
+Route::get('/passengers/{id}', [PassengerController::class, 'show']);
+Route::get('/passengers/search', [PassengerController::class, 'search']);
 
 // API routes for Companies
 Route::get('/passengers/{passengerId}/companies', [CompanyController::class, 'index']);

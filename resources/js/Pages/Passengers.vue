@@ -3,6 +3,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PassengerTable from '@/Components/Client/PassengerTable.vue';
 import { defineProps } from 'vue';
 import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
+
 
 
 // Define the props received from the Laravel controller

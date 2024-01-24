@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use Inertia\Inertia;
 use App\Models\Passenger;
 
 class PassengerController extends Controller
@@ -20,7 +19,7 @@ class PassengerController extends Controller
 
     public function create()
     {
-        return view('passengers.create.create');
+        return Inertia::render('Passengers/Create');
     }
 
     public function store(Request $request)
@@ -35,22 +34,30 @@ class PassengerController extends Controller
             'isCharterer' => 'nullable|boolean',
             'company_id' => 'nullable|max:255'
         ]);
-        Passenger::create($validatedData);
-        return Inertia::location('/dashboard');
-/*         return redirect()
-            ->route('passengers.index')
-            ->with('success', 'Passenger registered successfully.'); */
+
+        $passenger = Passenger::create($validatedData);
+
+        return $request->wantsJson()
+                    ? new JsonResponse($passenger, 201)
+                    : redirect()->route('passengers.index');
     }
 
-    public function edit(string $id)
+    public function show($id)
     {
         $passenger = Passenger::findOrFail($id);
-        return view('passengers.edit.edit', compact('passenger'));
+        return Inertia::render('Passengers/Show', ['passenger' => $passenger]);
     }
 
-    public function update(Request $request, string $id)
+    public function edit($id)
     {
         $passenger = Passenger::findOrFail($id);
+        return Inertia::render('Passengers/Edit', ['passenger' => $passenger]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $passenger = Passenger::findOrFail($id);
+
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|max:255',
@@ -61,12 +68,12 @@ class PassengerController extends Controller
             'isCharterer' => 'nullable|boolean',
             'company_id' => 'nullable|max:255'
         ]);
-        $passenger->update($validatedData);
-        return Inertia::location('/dashboard');
 
-        /* return redirect()
-            ->route('/dashboard')
-            ->with('success', 'Passenger record updated successfully.'); */
+        $passenger->update($validatedData);
+
+        return $request->wantsJson()
+                    ? new JsonResponse($passenger)
+                    : redirect()->route('passengers.index');
     }
 
     public function destroy($id)
@@ -74,19 +81,17 @@ class PassengerController extends Controller
         $passenger = Passenger::findOrFail($id);
         $passenger->delete();
 
-        return Inertia::location('/dashboard');
-    }
-
-    public function show($id)
-    {
-        $passenger = Passenger::with('company')->findOrFail($id);
-        return view('passengers.passenger_account', compact('passenger'));
+        return request()->wantsJson()
+                    ? new JsonResponse(['message' => 'Passenger deleted.'])
+                    : redirect()->route('passengers.index');
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
         $passengers = Passenger::where('last_name', 'like', "%{$query}%")->get();
-        return response()->json($passengers);
+        return $request->wantsJson()
+                    ? new JsonResponse($passengers)
+                    : Inertia::render('Passengers/Index', ['passengers' => $passengers]);
     }
 }

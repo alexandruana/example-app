@@ -31,14 +31,14 @@ Route::group(['prefix' => 'passengers/{passengerId}/travelDocuments'], function 
 });
 
 // Passengers Routes
-// Passengers Routes
-Route::get('/passengers', [PassengerController::class, 'index'])->name('passengers.index'); // Display the passengers page
-Route::get('/passengers/create', [PassengerController::class, 'create'])->name('passengers.create'); // Create passenger page
-Route::post('/passengers', [PassengerController::class, 'store'])->name('passengers.store'); // Store new passenger
-Route::get('/passengers/{id}', [PassengerController::class, 'show'])->name('passengers.show'); // Show a specific passenger
-Route::get('/passengers/{id}/edit', [PassengerController::class, 'edit'])->name('passengers.edit'); // Edit a specific passenger
-Route::put('/passengers/{id}', [PassengerController::class, 'update'])->name('passengers.update'); // Update a specific passenger
-Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy'); // Delete a specific passenger
+Route::get('/passengers', [PassengerController::class, 'index'])->name('passengers.index');
+Route::get('/passengers/create', [PassengerController::class, 'create'])->name('passengers.create');
+Route::get('/passengers/{id}/edit', [PassengerController::class, 'edit'])->name('passengers.edit');
+Route::get('/passengers/{id}', [PassengerController::class, 'show'])->name('passengers.show');
+// Post routes for form submissions
+Route::post('/passengers', [PassengerController::class, 'store'])->name('passengers.store');
+Route::put('/passengers/{id}', [PassengerController::class, 'update'])->name('passengers.update');
+Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
 
 // Trips Routes
 Route::get('/trips', [TripController::class, 'index'])->name('trips');
