@@ -47,7 +47,6 @@ const deletePassenger = (id) => {
                     Add passenger
                 </button>
                 <AddPassengerModal v-if="showPassengerForm" @close-modal="toggleModal"/>
-
             </div>
         </div>
         <div class="mt-8 flow-root">
