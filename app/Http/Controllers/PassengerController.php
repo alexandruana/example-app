@@ -13,7 +13,7 @@ class PassengerController extends Controller
     public function index()
     {
         $passengers = Passenger::all(); // Fetch all passengers
-        return Inertia::render('Dashboard', [
+        return Inertia::render('Passengers', [
             'passengers' => $passengers
         ]);
     }

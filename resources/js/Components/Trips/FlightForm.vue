@@ -1,5 +1,4 @@
 <template>
-    <div class="flex items-center justify-center px-4">
         <form @submit.prevent="submitForm" class="w-full max-w-4xl bg-sky-950 p-6 rounded-lg shadow-lg">
             <div class="flex flex-wrap -mx-3 items-center">
                 <div class="px-3 flex-1 min-w-0">
