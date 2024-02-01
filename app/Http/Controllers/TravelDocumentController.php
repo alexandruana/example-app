@@ -2,104 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Passenger;
 use App\Models\TravelDocument;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class TravelDocumentController extends Controller
 {
-    /**
-     * Display a listing of the travel documents for a specific passenger.
-     *
-     * @param  int  $passengerId
-     * @return Response
-     */
-    public function index($passengerId)
+    // Method to list travel documents for a specific passenger
+    public function index(Passenger $passenger)
     {
-        $travelDocuments = TravelDocument::where('passenger_id', $passengerId)->get();
-        return response()->json($travelDocuments);
+        $documents = $passenger->travelDocuments; // Assuming Passenger has a travelDocuments() relationship
+        return response()->json($documents);
     }
 
-    /**
-     * Store a newly created travel document in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $passengerId
-     * @return Response
-     */
-    public function store(Request $request, $passengerId)
+    // Method to store a new document
+    public function store(Request $request, Passenger $passenger)
     {
-        $validatedData = $request->validate([
-            'document_type' => 'required|string',
+        $data = $request->validate([
+            'type' => 'required|string',
             'country' => 'required|string',
-            'document_number' => 'required|string',
-            'issuing_date' => 'required|date',
-            'expiry_date' => 'required|date',
-            'isDefault' => 'required|boolean'
+            'number' => 'required|string',
+            'expiry' => 'required|date',
+            'isDefault' => 'nullable|boolean'
         ]);
 
-        // Check if the new document is marked as default
-        if ($validatedData['isDefault']) {
-            // Check for existing default document
-            $existingDefault = TravelDocument::where('passenger_id', $passengerId)
-                                            ->where('isDefault', true)
-                                            ->first();
+        $document = $passenger->travelDocuments()->create($data);
 
-            if ($existingDefault) {
-                // Decide how to handle this scenario
-                // E.g., make the existing document non-default
-                $existingDefault->update(['isDefault' => false]);
-            }
-        }
-
-        $travelDocument = new TravelDocument();
-        $travelDocument->fill($validatedData);
-        $travelDocument->passenger_id = $passengerId;
-        $travelDocument->save();
-
-        return response()->json($travelDocument, 201);
+        return response()->json($document, 201);
     }
 
-
-    /**
-     * Update the specified travel document in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $passengerId
-     * @param  int  $documentId
-     * @return Response
-     */
-    public function update(Request $request, $passengerId, $documentId)
+    // Method to update a specific document
+    public function update(Request $request, Passenger $passenger, TravelDocument $document)
     {
-        $validatedData = $request->validate([
-            'document_type' => 'required|string',
-            'country' => 'required|string',
-            'document_number' => 'required|string',
-            'issuing_date' => 'required|date',
-            'expiry_date' => 'required|date',
-            'isDefault' => 'required|boolean'
+        $data = $request->validate([
+            'type' => 'string',
+            'country' => 'string',
+            'number' => 'string',
+            'expiry' => 'date',
+            'isDefault' => 'nullable|boolean'
         ]);
 
-        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
-                                         ->findOrFail($documentId);
-        $travelDocument->update($validatedData);
+        $document->update($data);
 
-        return response()->json($travelDocument);
+        return response()->json($document);
     }
 
-    /**
-     * Remove the specified travel document from storage.
-     *
-     * @param  int  $passengerId
-     * @param  int  $documentId
-     * @return Response
-     */
-    public function destroy($passengerId, $documentId)
+    // Method to delete a document
+    public function destroy(Passenger $passenger, TravelDocument $document)
     {
-        $travelDocument = TravelDocument::where('passenger_id', $passengerId)
-                                         ->findOrFail($documentId);
-        $travelDocument->delete();
+        $document->delete();
 
-        return response()->json(null, 204); // 204 No Content
+        return response()->json(['message' => 'Document deleted successfully']);
     }
 }

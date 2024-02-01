@@ -8,19 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class TravelDocument extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'passenger_id',
-        'document_type',
-        'country', 
-        'document_number', 
-        'issuing_date', 
-        'expiry_date', 
-        'isDefault'
-    ];
-
-    public function passenger()
-    {
-        return $this->belongsTo(Passenger::class);
-    }
 }

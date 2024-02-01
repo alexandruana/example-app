@@ -45,8 +45,8 @@ Route::post('/passengers/{passengerId}/companies', [CompanyController::class, 's
 Route::put('/passengers/{passengerId}/companies/{companyId}', [CompanyController::class, 'update']);
 Route::delete('/passengers/{passengerId}/companies/{company}', [CompanyController::class, 'destroy']);
 
-// API routes for Travel Documents
-Route::get('/passengers/{passengerId}/travelDocuments', [TravelDocumentController::class, 'index']);
-Route::post('/passengers/{passengerId}/travelDocuments', [TravelDocumentController::class, 'store']);
-Route::put('/passengers/{passengerId}/travelDocuments/{documentId}', [TravelDocumentController::class, 'update']);
-Route::delete('/passengers/{passengerId}/travelDocuments/{documentId}', [TravelDocumentController::class, 'destroy']);
+// API Routes for Travel Documents
+Route::get('/passengers/{passenger}/documents', [TravelDocumentController::class, 'index']);
+Route::post('/passengers/{passenger}/documents', [TravelDocumentController::class, 'store']);
+Route::put('/passengers/{passenger}/documents/{document}', [TravelDocumentController::class, 'update']);
+Route::delete('/passengers/{passenger}/documents/{document}', [TravelDocumentController::class, 'destroy']);

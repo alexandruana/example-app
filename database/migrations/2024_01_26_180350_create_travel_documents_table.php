@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateTravelDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,18 +16,14 @@ return new class extends Migration
         Schema::create('travel_documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('passenger_id');
-            $table->foreign('passenger_id')->references('id')->on('passengers')->onDelete('cascade');
             $table->string('document_type');
-            $table->string('country');
+            $table->string('document_country');
             $table->string('document_number');
-            $table->date('issuing_date');
-            $table->date('expiry_date');
-            $table->boolean('isDefault')->default(false); // Ensure this line exists
+            $table->date('document_expiry');
+            $table->boolean('isDefault')->default(false);
             $table->timestamps();
-        });
-        
-        Schema::table('travel_documents', function (Blueprint $table) {
-            $table->unique(['passenger_id', 'isDefault']);
+
+            $table->foreign('passenger_id')->references('id')->on('passengers')->onDelete('cascade');
         });
     }
 
@@ -40,10 +36,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('travel_documents');
     }
-
-    public function passenger()
-    {
-        return $this->belongsTo(Passenger::class);
-    }
-
-};
+}

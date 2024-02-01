@@ -19,26 +19,15 @@ use Inertia\Inertia;
 |
 */
 
-// Routes for Travel Documents of a specific Passenger
-Route::group(['prefix' => 'passengers/{passengerId}/travelDocuments'], function () {
-    Route::get('/', [TravelDocumentController::class, 'index'])->name('travelDocuments.index');
-    Route::get('/create', [TravelDocumentController::class, 'create'])->name('travelDocuments.create');
-    Route::post('/', [TravelDocumentController::class, 'store'])->name('travelDocuments.store');
-    Route::get('/{documentId}', [TravelDocumentController::class, 'show'])->name('travelDocuments.show');
-    Route::get('/{documentId}/edit', [TravelDocumentController::class, 'edit'])->name('travelDocuments.edit');
-    Route::put('/{documentId}', [TravelDocumentController::class, 'update'])->name('travelDocuments.update');
-    Route::delete('/{documentId}', [TravelDocumentController::class, 'destroy'])->name('travelDocuments.destroy');
-});
-
-// Passengers Routes
+// Passenger Routes
 Route::get('/passengers', [PassengerController::class, 'index'])->name('passengers.index');
 Route::get('/passengers/create', [PassengerController::class, 'create'])->name('passengers.create');
-Route::get('/passengers/{id}/edit', [PassengerController::class, 'edit'])->name('passengers.edit');
-Route::get('/passengers/{id}', [PassengerController::class, 'show'])->name('passengers.show');
-// Post routes for form submissions
 Route::post('/passengers', [PassengerController::class, 'store'])->name('passengers.store');
+Route::get('/passengers/{id}', [PassengerController::class, 'show'])->name('passengers.show');
+Route::get('/passengers/{id}/edit', [PassengerController::class, 'edit'])->name('passengers.edit');
 Route::put('/passengers/{id}', [PassengerController::class, 'update'])->name('passengers.update');
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
+Route::get('/passengers/search', [PassengerController::class, 'search'])->name('passengers.search');
 
 // Trips Routes
 Route::get('/trips', [TripController::class, 'index'])->name('trips');
