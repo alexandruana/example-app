@@ -1,64 +1,72 @@
 <template>
-    <form @submit.prevent="submitForm" class="w-full bg-gray-100 p-6 rounded-lg shadow-lg mb-4">
-        <div class="flex flex-wrap -mx-3 items-center">
-            <div class="px-3 flex-1 min-w-0">
-                <label for="from" class="block text-sm font-medium leading-6 text-gray-900">From</label>
-                <div class="mt-2">
-                    <input
-                        id="from"
-                        type="text"
-                        v-model="form.from"
-                        class="font-bold appearance-none block w-full bg-gray-100 text-sky-950 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-50"
-                        placeholder="From"
-                    >
-                </div>
+    <form @submit.prevent="submitForm" class="w-full border border-gray-200 p-4 rounded-lg mb-4">
+        <div class="flex flex-wrap -mx-3 items-center justify-between">
+            <div class="relative px-3">
+                <label
+                    for="from" 
+                    class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                    From
+                </label>
+                <input
+                    id="from"
+                    type="text"
+                    v-model="form.from"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Departure airport"
+                >
             </div>
-            <div class="px-3 flex-1 min-w-0">
-                <label for="to" class="block text-sm font-medium leading-6 text-gray-900">To</label>
-                <div class="mt-2">
-                    <input
-                        id="to"
-                        type="text"
-                        v-model="form.to"
-                        class="font-bold appearance-none block w-full bg-gray-100 text-sky-950 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-50"
-                        placeholder="To"
-                    >
-                </div>
+            <div class="relative px-3">
+                <label
+                    for="To" 
+                    class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                    To
+                </label>
+                <input
+                    id="to"
+                    type="text"
+                    v-model="form.to"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Arrival airport"
+                >
             </div>
-            <div class="px-3 flex-1 min-w-0">
-                <label for="date" class="block text-sm font-medium leading-6 text-gray-900">Date</label>
-                    <div class="mt-2">
-                        <input
-                            id="date"
-                            type="date"
-                            v-model="form.date"
-                            class="font-bold appearance-none block w-full bg-gray-100 text-sky-950 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-50"
-                        >
-                    </div>
+            <div class="relative px-3">
+                <label
+                    for="date" 
+                    class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                    Date
+                </label>
+                <input
+                    id="date"
+                    type="date"
+                    v-model="form.date"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
             </div>
-            <div class="px-3 flex-1 min-w-0">
-                <label for="time" class="block text-sm font-medium leading-6 text-gray-900">Time (local)</label>
-                <div class="mt-2">
-                    <input
-                        id="time"
-                        type="time"
-                        v-model="form.time"
-                        class="font-bold appearance-none block w-full bg-gray-100 text-sky-950 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-50"
-                    >
-                </div>
+            <div class="relative px-3">
+                <label
+                    for="time" 
+                    class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                    Time
+                </label>
+                <input
+                    id="time"
+                    type="time"
+                    v-model="form.time"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
             </div>
-            <div class="px-3 flex-1 min-w-0">
-                <label for="pax" class="block text-sm font-medium leading-6 text-gray-900">PAX</label>
-                <div class="mt-2">
-                    <input
-                        id="pax"
-                        type="number"
-                        v-model="form.pax"
-                        min="1"
-                        max="4"
-                        class="font-bold appearance-none block w-full bg-gray-100 text-sky-950 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-50"
-                    >
-                </div>
+            <div class="relative px-3">
+                <label
+                    for="pax" 
+                    class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
+                    PAX
+                </label>
+                <input
+                    id="pax"
+                    type="number"
+                    v-model="form.pax"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
             </div>
             <div class="px-3 place-self-end">
                 <button
@@ -94,10 +102,10 @@ defineProps({
 });
     
 const form = ref({
-    from: 'EPWA',
-    to: 'LROP',
-    date: '2024-01-31',
-    time: '09:00',
+    from: '',
+    to: '',
+    date: '',
+    time: '',
     pax: 1,
 });
 
