@@ -36,8 +36,11 @@
                 v-for="(leg, index) in legs"
                 :key="index"
                 :can-remove="legs.length > 1"
+                :leg-data="leg"
+                :leg-index="index"
                 @add-leg="addLeg"
                 @remove-leg="() => removeLeg(index)"
+                @update-leg="updateLegData"
             />
         </div>
         <div class="flex justify-end px-4 py-4 sm:px-6">
@@ -57,21 +60,22 @@ import { reactive, ref } from 'vue';
 import LegForm from '@/Components/Trips/LegForm.vue';
 import axios from 'axios';
 
+// Reactive state for the trip form
 const form = reactive({
     client_id: '',
-    trip_name: '',
-    start_date: '',
-    end_date: '',
+    trip_number: '',
     status: ''
 });
 
+// Search related reactive variables
 const searchQuery = ref('');
 const searchResults = ref([]);
 
+// Function to search for clients
 const searchClients = async () => {
     if (searchQuery.value) {
         const response = await axios.get('/api/search-passengers', {
-        params: { query: searchQuery.value }
+            params: { query: searchQuery.value }
         });
         searchResults.value = response.data;
     } else {
@@ -79,27 +83,72 @@ const searchClients = async () => {
     }
 };
 
+// Function to select a client from search results
 const selectClient = (client) => {
-    form.client_id = client.id; // Set the client_id in the form
-    searchQuery.value = client.first_name + ' ' + client.last_name; // Update the input field with the selected client's name
-    searchResults.value = []; // Clear the search results
+    form.client_id = client.id;
+    searchQuery.value = `${client.first_name} ${client.last_name}`;
+    searchResults.value = [];
 };
 
-const legs = ref([{ /* initial leg data */ }]);
+// Reactive array for storing legs
+const legs = ref([{ /* initial leg data, if any */ }]);
 
+// Function to add a new leg
 const addLeg = () => {
-  legs.value.push({ /* new leg data */ });
+    legs.value.push({ /* new leg data */ });
 };
 
-const updateLeg = (index, legData) => {
-  legs.value[index] = legData;
-};
-
+// Function to remove a leg by index
 const removeLeg = (index) => {
-  legs.value.splice(index, 1);
+    legs.value.splice(index, 1);
 };
 
-const submitForm = () => {
-  // Handle submission logic here
+// Function to update leg data
+const updateLegData = (index, legData) => {
+    if (index >= 0 && index < legs.value.length) {
+        legs.value[index] = legData;
+    }
 };
+
+// console.log('Trip data:', { ...form, legs: legs.value });
+
+// Variable to keep track of the last used ID, should be stored persistently
+let lastUsedId = 0; // Initialize from persistent storage on application start
+
+function generateUniqueId(date) {
+    // Increment the last used ID to get a new unique sequential number
+    const uniqueIdentifier = ++lastUsedId;
+
+    // Extract the month and year from the date
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // +1 because getMonth() returns 0-11
+    const year = date.getFullYear();
+
+    // Combine the extracted month and year with the unique identifier
+    const uniqueId = `${month}-${year}/${uniqueIdentifier}`;
+
+    // Update the storage with the new lastUsedId value (not shown here)
+    // updateStorage(lastUsedId);
+
+    return uniqueId;
+}
+
+// Assuming this is your submitForm function in TripForm component
+const submitForm = () => {
+    console.log('Trip data:', { ...form, legs: legs.value });
+    if (legs.value.length > 0 && legs.value[0].date) {
+        const firstLegDate = new Date(legs.value[0].date);
+        const tripId = generateUniqueId(firstLegDate);
+
+        // Now, tripId contains the unique ID based on the first leg's date and the sequential number
+        console.log('Generated Trip ID:', tripId);
+
+        // Continue with the form submission logic, now including the generated tripId
+        // For example, send the trip details along with tripId to your backend
+    } else {
+        console.log('No valid date for the first leg, cannot generate Trip ID');
+    }
+};
+
+
 </script>
+
