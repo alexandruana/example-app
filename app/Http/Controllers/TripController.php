@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trip; // Make sure to use your Trip model
+use App\Models\Trip;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
 
 class TripController extends Controller
 {
@@ -30,9 +29,8 @@ class TripController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'unique_trip_id' => 'required|unique:trips,unique_trip_id', // Ensure unique_trip_id is unique in the trips table
             'passenger_id' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
             'start_date' => 'required|date',
             'routing' => 'required',
             'status' => 'required',
@@ -46,10 +44,10 @@ class TripController extends Controller
     public function update(Request $request, $id)
     {
         $trip = Trip::findOrFail($id);
+
+        // Exclude unique_trip_id from the validation and update process
         $validated = $request->validate([
             'passenger_id' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
             'start_date' => 'required|date',
             'routing' => 'required',
             'status' => 'required',

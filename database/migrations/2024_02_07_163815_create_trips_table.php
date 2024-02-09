@@ -10,10 +10,8 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
-            $table->string('unique_trip_id')->unique();
+            $table->string('unique_trip_id')->unique()->nullable();
             $table->foreignId('passenger_id')->constrained()->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('last_name');
             $table->date('start_date');
             $table->string('routing');
             $table->string('status');

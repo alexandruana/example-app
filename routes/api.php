@@ -23,12 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Get all trips
-Route::get('/trips', [TripController::class, 'index']);
-Route::get('/trips/{trip}', [TripController::class, 'show']);
-Route::post('/trips', [TripController::class, 'store']);
-Route::put('/trips/{trip}', [TripController::class, 'update']);
-Route::delete('/trips/{trip}', [TripController::class, 'destroy']);
+// API routes for Trips
+Route::post('/trips', [TripController::class, 'store'])->name('api.trips.store');
+Route::put('/trips/{trip}', [TripController::class, 'update'])->name('api.trips.update');
+Route::delete('/trips/{trip}', [TripController::class, 'destroy'])->name('api.trips.destroy');
 
 // API routes for Passengers
 Route::get('/search-passengers', [PassengerController::class, 'search']);

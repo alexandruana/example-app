@@ -64,7 +64,7 @@ import axios from 'axios';
 const form = reactive({
     client_id: '',
     trip_number: '',
-    status: ''
+    status: 'Pending'
 });
 
 // Search related reactive variables
@@ -132,23 +132,57 @@ function generateUniqueId(date) {
     return uniqueId;
 }
 
-// Assuming this is your submitForm function in TripForm component
-const submitForm = () => {
-    console.log('Trip data:', { ...form, legs: legs.value });
-    if (legs.value.length > 0 && legs.value[0].date) {
-        const firstLegDate = new Date(legs.value[0].date);
-        const tripId = generateUniqueId(firstLegDate);
+const submitForm = async () => {
+    const startDate = legs.value.length > 0 ? new Date(legs.value[0].date) : null;
+    if (!startDate || isNaN(startDate.getTime())) {
+        console.error('No legs available or the first leg does not have a valid date.');
+        return;
+    }
 
-        // Now, tripId contains the unique ID based on the first leg's date and the sequential number
-        console.log('Generated Trip ID:', tripId);
+    const allLocations = legs.value.flatMap(leg => [leg.from, leg.to]);
+    const uniqueLocations = Array.from(new Set(allLocations));
+    const routing = uniqueLocations.join('/');
 
-        // Continue with the form submission logic, now including the generated tripId
-        // For example, send the trip details along with tripId to your backend
-    } else {
-        console.log('No valid date for the first leg, cannot generate Trip ID');
+    const uniqueTripId = generateUniqueId(startDate);
+    console.log(`Unique Trip ID: ${uniqueTripId}`); // Log the unique_trip_id
+
+    const tripData = {
+        unique_trip_id: uniqueTripId,
+        passenger_id: form.client_id,
+        start_date: startDate.toISOString().split('T')[0],
+        routing: routing,
+        status: form.status,
+        legs: legs.value.map(leg => ({
+            from_location: leg.from,
+            to_location: leg.to,
+            date: leg.date,
+            time: leg.time,
+            pax: leg.pax
+        }))
+    };
+
+    try {
+        const response = await axios.post('/api/trips', tripData);
+        console.log('Trip created successfully:', response.data);
+        resetFormAndLegs();
+        alert('Trip submitted successfully!');
+    } catch (error) {
+        console.error('Failed to create the trip:', error.response?.data || error.message);
+        alert('Failed to submit the trip. Please try again.');
     }
 };
 
+function resetFormAndLegs() {
+    // Reset the form fields to their initial states
+    form.client_id = '';
+    form.trip_number = '';
+    form.status = 'Pending';
 
+    // Clear the legs array
+    legs.value = [{}];
+
+    // Reset or persist the lastUsedId as needed
+    // updateStorage(lastUsedId); // Ensure you implement updateStorage to persist the lastUsedId
+}
 </script>
 
