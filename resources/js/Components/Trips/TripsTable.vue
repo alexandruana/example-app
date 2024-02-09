@@ -1,5 +1,13 @@
 <script setup>
 import Modal from '@/Components/Modal.vue';
+import TripForm from '@/Components/Trips/TripForm.vue';
+import { ref } from 'vue';
+
+const showTripForm = ref(false);
+
+const toggleModal = () => {
+    showTripForm.value = !showTripForm.value
+}
 
 </script>
 
@@ -11,11 +19,15 @@ import Modal from '@/Components/Modal.vue';
                 <p class="mt-2 text-sm text-gray-700">A list of all trips.</p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <button 
+                <button
+                    @click="toggleModal"
                     type="button"
                     class="block rounded-md bg-sky-500 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Register trip
                 </button>
+                <Modal :show="showTripForm" @close="showTripForm = false">
+                    <TripForm @close-modal="showTripForm = false"/>
+                </Modal>
             </div>
         </div>
         <div class="mt-8 flow-root">
