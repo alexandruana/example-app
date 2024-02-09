@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="submitForm" class="w-full border border-gray-200 p-4 rounded-lg mb-4">
-        <div class="flex flex-wrap -mx-3 items-center justify-between">
+        <div class="flex -mx-3 items-center justify-between">
             <!-- From Field -->
-            <div class="relative px-3 w-full md:w-1/5">
+            <div class="relative px-3">
                 <label for="from" class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     From
                 </label>
@@ -15,7 +15,7 @@
                 >
             </div>
             <!-- To Field -->
-            <div class="relative px-3 w-full md:w-1/5">
+            <div class="relative px-3">
                 <label for="to" class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     To
                 </label>
@@ -28,7 +28,7 @@
                 >
             </div>
             <!-- Date Field -->
-            <div class="relative px-3 w-full md:w-1/5">
+            <div class="relative px-3">
                 <label for="date" class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     Date
                 </label>
@@ -40,7 +40,7 @@
                 >
             </div>
             <!-- Time Field -->
-            <div class="relative px-3 w-full md:w-1/5">
+            <div class="relative px-3">
                 <label for="time" class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     Time
                 </label>
@@ -52,7 +52,7 @@
                 >
             </div>
             <!-- PAX Field -->
-            <div class="relative px-3 w-full md:w-1/5">
+            <div class="relative px-3">
                 <label for="pax" class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900">
                     PAX
                 </label>
