@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import TripsTable from '@/Components/Trips/TripsTable.vue';
+import TripForm from '@/Components/Trips/TripForm.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
 
@@ -14,7 +14,7 @@ import { Head } from '@inertiajs/vue3';
                     <div class="mx-auto mt-5">
                         <div class="flex flex-wrap">
                             <div class="w-full">
-                                <TripsTable />
+                                <TripForm />
                             </div>
                         </div>
                     </div>

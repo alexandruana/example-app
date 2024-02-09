@@ -4,6 +4,7 @@ use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TravelDocumentController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\LegController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +20,23 @@ use Inertia\Inertia;
 |
 */
 
+// Trip Routes
+Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
+Route::get('/trips/create', [TripController::class, 'create'])->name('trips.create');
+Route::post('/trips', [TripController::class, 'store'])->name('trips.store');
+Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trips.show');
+Route::get('/trips/{trip}/edit', [TripController::class, 'edit'])->name('trips.edit');
+Route::put('/trips/{trip}', [TripController::class, 'update'])->name('trips.update');
+Route::delete('/trips/{trip}', [TripController::class, 'destroy'])->name('trips.destroy');
+
+// Leg Routes
+Route::get('/legs', [LegController::class, 'index'])->name('legs.index'); // If needed
+Route::post('/legs', [LegController::class, 'store'])->name('legs.store');
+Route::get('/legs/{leg}/edit', [LegController::class, 'edit'])->name('legs.edit'); // If needed
+Route::put('/legs/{leg}', [LegController::class, 'update'])->name('legs.update');
+Route::delete('/legs/{leg}', [LegController::class, 'destroy'])->name('legs.destroy');
+
+
 // Passenger Routes
 Route::get('/passengers', [PassengerController::class, 'index'])->name('passengers.index');
 Route::get('/passengers/create', [PassengerController::class, 'create'])->name('passengers.create');
@@ -28,9 +46,6 @@ Route::get('/passengers/{id}/edit', [PassengerController::class, 'edit'])->name(
 Route::put('/passengers/{id}', [PassengerController::class, 'update'])->name('passengers.update');
 Route::delete('/passengers/{id}', [PassengerController::class, 'destroy'])->name('passengers.destroy');
 Route::get('/passengers/search', [PassengerController::class, 'search'])->name('passengers.search');
-
-// Trips Routes
-Route::get('/trips', [TripController::class, 'index'])->name('trips');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

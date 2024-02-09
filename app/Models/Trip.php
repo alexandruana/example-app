@@ -9,23 +9,22 @@ class Trip extends Model
 {
     use HasFactory;
 
+    // Define the table if it's not the pluralized form of the model name
+    // protected $table = 'trips';
+
+    // Mass assignable attributes
     protected $fillable = [
-        'client_id',
-        'trip_name',
+        'passenger_id',
+        'first_name',
+        'last_name',
         'start_date',
-        'end_date',
-        'status'
+        'routing',
+        'status',
     ];
 
+    // Define the relationship with the Passenger model
     public function passenger()
     {
-        return $this->belongsTo(Passenger::class);
+        return $this->belongsTo(Passenger::class, 'passenger_id');
     }
-
-    public function flights()
-    {
-        return $this->hasMany(Flight::class);
-    }
-
-
 }

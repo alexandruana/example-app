@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Trip; // Make sure to use your Trip model
 use Illuminate\Http\Request;
-use App\Models\Trip; // Make sure you have a Trip model
 use Inertia\Inertia;
+
 
 class TripController extends Controller
 {
-    // Display a list of all trips
+    // List all trips
     public function index()
     {
         $trips = Trip::all(); // Fetch all trips from the database
@@ -18,71 +19,51 @@ class TripController extends Controller
         ]);
     }
 
-    // Show a form for creating a new trip
-    public function create()
+    // Show a single trip
+    public function show($id)
     {
-        // Return a view for creating a new trip
-        return Inertia::render('TripCreate');
+        $trip = Trip::findOrFail($id);
+        return response()->json($trip);
     }
 
-    // Store a newly created trip in the database
+    // Create a new trip
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'client_id' => 'required|integer',
-            'trip_name' => 'required|string|max:255',
+            'passenger_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|string'
+            'routing' => 'required',
+            'status' => 'required',
         ]);
 
         $trip = Trip::create($validated);
-
-        // Return a JSON response or Inertia response
-        return response()->json(['message' => 'Trip created successfully', 'trip' => $trip]);
+        return response()->json($trip, 201);
     }
 
-    // Display a specific trip
-    public function show(Trip $trip)
+    // Update an existing trip
+    public function update(Request $request, $id)
     {
-        return Inertia::render('TripShow', [
-            'trip' => $trip,
-        ]);
-    }
-
-    // Show a form for editing a specific trip
-    public function edit(Trip $trip)
-    {
-        return Inertia::render('TripEdit', [
-            'trip' => $trip,
-        ]);
-    }
-
-    // Update a specific trip in the database
-    public function update(Request $request, Trip $trip)
-    {
-        // Validate the request...
+        $trip = Trip::findOrFail($id);
         $validated = $request->validate([
-            // Add validation rules here
-            'passenger_id' => 'required|integer',
-            'trip_name' => 'required|string|max:255',
+            'passenger_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|string'
+            'routing' => 'required',
+            'status' => 'required',
         ]);
 
         $trip->update($validated);
-
-        // Redirect after updating the trip
-        return redirect()->route('trips.index');
+        return response()->json($trip);
     }
 
-    // Delete a specific trip
-    public function destroy(Trip $trip)
+    // Delete a trip
+    public function destroy($id)
     {
+        $trip = Trip::findOrFail($id);
         $trip->delete();
-
-        // Redirect after deleting the trip
-        return redirect()->route('trips.index');
+        return response()->json(null, 204);
     }
 }
