@@ -56,9 +56,12 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, defineEmits } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 import LegForm from '@/Components/Trips/LegForm.vue';
 import axios from 'axios';
+
+const emit = defineEmits(['close-modal']);
 
 // Reactive state for the trip form
 const form = reactive({
@@ -165,6 +168,8 @@ const submitForm = async () => {
         const response = await axios.post('/api/trips', tripData);
         console.log('Trip created successfully:', response.data);
         resetFormAndLegs();
+        emit('close-modal');
+        Inertia.reload({ only: ['trips'] });
         alert('Trip submitted successfully!');
     } catch (error) {
         console.error('Failed to create the trip:', error.response?.data || error.message);
