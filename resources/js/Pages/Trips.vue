@@ -2,6 +2,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import TripsTable from '@/Components/Trips/TripsTable.vue';
 import { Head } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
+
+const props = defineProps({
+    trips: Array // This prop is automatically provided by Inertia with the data passed from the controller
+});
 </script>
 
 <template>
@@ -14,7 +19,7 @@ import { Head } from '@inertiajs/vue3';
                     <div class="mx-auto mt-5">
                         <div class="flex flex-wrap">
                             <div class="w-full">
-                                <TripsTable />
+                                <TripsTable :trips="trips" />
                             </div>
                         </div>
                     </div>

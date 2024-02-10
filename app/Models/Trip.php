@@ -4,56 +4,52 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 class Trip extends Model
 {
     use HasFactory;
 
-    // Mass assignable attributes
     protected $fillable = [
         'passenger_id',
-        'unique_trip_id', // Ensure this is also fillable
         'start_date',
         'routing',
         'status',
+        // Add 'unique_trip_id' to fillable if you're setting it manually
     ];
 
-    // Define the relationship with the Passenger model
-    public function passenger()
+    // Relationship with the Leg model
+    public function legs()
     {
-        return $this->belongsTo(Passenger::class, 'passenger_id');
+        return $this->hasMany(Leg::class, 'trip_id');
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        // Add a creating event to generate unique_trip_id before saving a new Trip
         static::creating(function ($trip) {
-            if (empty($trip->unique_trip_id)) { // Check if unique_trip_id is not already set
-                $trip->unique_trip_id = static::generateUniqueTripId();
+            // Generate and set unique_trip_id here if not set
+            if (empty($trip->unique_trip_id)) {
+                $trip->unique_trip_id = $trip->generateUniqueTripIdUsingId($trip->id);
             }
         });
     }
 
-    protected static function generateUniqueTripId()
+    // Generate a unique trip ID using the trip's ID
+    public function generateUniqueTripIdUsingId($id)
     {
         $datePart = now()->format('m-Y');
-        $key = 'trip_id_' . $datePart;
+        return "{$datePart}/{$id}";
+    }
 
-        // Retrieve the last sequential number for this month and year, or start with 0
-        $lastSequentialId = Cache::get($key, 0);
-
-        // Increment the sequential ID
-        $newSequentialId = $lastSequentialId + 1;
-
-        // Store the new sequential ID in the cache with an expiration (e.g., 2 months to ensure it persists through the entire month and a bit beyond)
-        Cache::put($key, $newSequentialId, now()->addMonths(2));
-
-        // Combine the date part and the new sequential ID
-        $uniqueTripId = "{$datePart}/{$newSequentialId}";
-
-        return $uniqueTripId;
+     /**
+     * Set the routing attribute to uppercase.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setRoutingAttribute($value)
+    {
+        $this->attributes['routing'] = strtoupper($value);
     }
 }

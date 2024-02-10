@@ -3,6 +3,11 @@ import Modal from '@/Components/Modal.vue';
 import TripForm from '@/Components/Trips/TripForm.vue';
 import { ref } from 'vue';
 
+// Define the props that TripsTable expects to receive
+const props = defineProps({
+    trips: Array
+});
+
 const showTripForm = ref(false);
 
 const toggleModal = () => {
@@ -39,13 +44,8 @@ const toggleModal = () => {
                             <tr>
                                 <th
                                     scope="col"
-                                    class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
+                                    class="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
                                     Trip ID
-                                </th>
-                                <th
-                                    scope="col"
-                                    class="sticky top-0 z-10 hidden border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
-                                    Customer
                                 </th>
                                 <th
                                     scope="col"
@@ -65,29 +65,24 @@ const toggleModal = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="(trip, index) in props.trips" :key="index">
                                 <td
                                     class="whitespace-nowrap border-b border-gray-200 py-4 px-3 text-left text-sm font-medium text-gray-900"
                                 >
-                                    02-2024/01
-                                </td>
-                                <td
-                                    class="whitespace-nowrap border-b border-gray-200 py-4 px-3 text-left text-sm font-medium text-gray-900"
-                                >
-                                    Joe Doe
+                                    {{ trip.unique_trip_id }}
                                 </td>
                                 <td
                                     class="whitespace-nowrap border-b border-gray-200 py-4 px-3 text-sm font-medium text-gray-900"
                                 >
-                                    15 FEB 2024
+                                    {{ trip.start_date }}
                                 </td>
                                 <td
                                     class="whitespace-nowrap border-b border-gray-200 py-4 px-3 text-sm font-medium text-gray-900"
                                 >
-                                    LRAR / OMDW
+                                    {{ trip.routing }}
                                 </td>
                                 <td
-                                    class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500"
+                                    class="whitespace-nowrap border-b border-gray-200 py-4 px-3 text-sm text-gray-500"
                                 >
                                     <button class="px-2 text-amber-500 hover:text-amber-300">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
