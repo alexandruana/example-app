@@ -15,16 +15,18 @@ class TripController extends Controller
     {
         $trips = Trip::all(); // Fetch all trips from the database
 
+        // Render the Inertia component and pass the trips data to it
         return Inertia::render('Trips', [
-            'trips' => $trips,
+            'trips' => $trips
         ]);
     }
 
     // Show a single trip
-    public function show($id)
+    public function show(Trip $trip)
     {
-        $trip = Trip::findOrFail($id);
-        return response()->json($trip);
+        return Inertia::render('TripDetails', [
+            'trip' => $trip
+        ]);
     }
 
     // Create a new trip

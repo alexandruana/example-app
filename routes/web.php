@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
     Route::get('/trips/create', [TripController::class, 'create'])->name('trips.create');
     Route::get('/trips/{trip}/edit', [TripController::class, 'edit'])->name('trips.edit');
-    Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trip.show');
+    Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trips.show');
 });
 
 // Leg Routes
